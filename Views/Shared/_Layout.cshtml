@@ -1,0 +1,107 @@
+﻿@inject IHttpContextAccessor _contextAccessor;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CommerceProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CommerceProject.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">...Loading</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <!--Aligning login nav item to right "flex-grow-1 to w-100"
+
+                                        //MB-->
+                    <ul id="name" class="navbar-nav w-100">
+ 
+                           
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Search" id="s" asp-action="SearchForFundraiser">Search</a>
+                        </li>
+                        
+
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Fundraiser" asp-action="FundraiserListView">Fundraisers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-controller="Fundraiser" asp-action="StartFundraiser">START FUNDRAISING</a>
+                        </li>
+                        @*<li class="nav-item">
+                            <a class="nav-link text-light">@_contextAccessor.HttpContext.Session.GetString("username")</a>
+                        </li>*@
+
+                       <ul class="navbar nav ml-auto">
+                            @if (User.Identity.IsAuthenticated@* && !string.IsNullOrEmpty(_contextAccessor.HttpContext.Session.GetString("username"))*@)
+                            {
+                                <li class="nav-item">
+                                    <form method="post" asp-action="Logout" asp-controller="Login">
+                                        <button asp-action="Logout" asp-controller="Login"  type="submit" class="nav-link btn btn-link py-0 text-light" style="width:auto">Sign out @User.Identity.Name</button>
+                                        @*<a class="nav-link text-light" asp-controller="Home" asp-action="Index" class="btn btn-primary">Sign out</a>*@
+                                    </form>
+                                </li>
+                            } else 
+                            {
+                                <a class="nav-link text-light" asp-controller="Login" asp-action="Index">Sign In</a>
+                            }
+                        </ul>
+@*                        <script type="text-javascript">
+                                if (User.Identity.isAuthenticated)
+                                {
+                                    document.getElementById("navbarDropdownMenuLink").style.display = "none";
+                                }
+                        </script>*@
+                        
+                        @*<li>
+                            <a class="nav-link text-light" asp-controller="Login" asp-action="Index" class="btn btn-primary">Sign In</a>
+                        </li>*@
+
+@*                        <li class="nav-item dropdown ms-auto">
+                            <a asp-controller="Login" asp-action="Index" class="nav-link text-light dropdown-toggle"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">Sign in</a>
+                            <!--
+                            <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Index">Sign in</a>
+                                                //MB-->
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="#">User</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Admin</a>
+                                </li>
+                            </ul>
+                        </li>*@
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - CommerceProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

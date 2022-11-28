@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Fundraiser_1>
+@{
+    ViewData["Title"] = "Home Page";
+   
+
+}
+
+
+<p>Here you will see a list of fundraisers</p>
+
+
+@using (Html.BeginForm("Index", "Fundraiser", FormMethod.Post)){
+<form method="post">
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Fundraiser Title
+            </th>
+            <th>
+                Fundraiser Description
+            </th>
+            <th>
+                Goal
+            </th>
+            <th>
+                Current Amount
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td width="30%">
+                    @Html.ActionLink(@obj.FundraiserName, "ShowData", "Fundraiser", new {FundraiserName = @obj.FundraiserName, 
+                        Description = @obj.FundraiserDescription, CurrentAmount = obj.FundraiserCurrentAmount,
+                        Goal = obj.FundraiserGoal}, null );                            
+                </td>
+                <td width="40%">
+                    @obj.FundraiserDescription   
+                </td>
+                <td width="15%">
+                    @obj.FundraiserGoal
+                </td>
+                <td width="15%">
+                    @obj.FundraiserCurrentAmount
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    </form>
+}

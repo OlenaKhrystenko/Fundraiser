@@ -1,0 +1,40 @@
+﻿
+
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h1>Sign in before continue... </h1>
+                @*<a asp-controller="Login" asp-action="demo" class="link-primary">Sign in</a>*@
+            </div>
+            @using (Html.BeginForm("StartFundraiser", "Fundraiser"))
+            {
+                <div class="card-body">
+                    <form asp-controller="Login" method="post">
+                        <div class="mb-3">
+                            <label>Enter your goal:</label>
+                            <input type="text" placeholder="$0.00" class="form-control" name="goal" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Fundraiser Title:</label>
+                            <input type="text" placeholder="title" class="form-control" name="title" />
+
+                        </div>
+
+                        <div class="mb-3">
+                            <button asp-controller="Fundraiser" asp-action="StartFundraiser" type="submit" class="btn btn-primary">Next</button>
+                        </div>
+
+                        
+                    </form>
+                </div>
+                <div class="card-footer">
+                </div>
+            }
+            
+
+        </div>
+    </div>
+</div>

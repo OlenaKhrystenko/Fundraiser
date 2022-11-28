@@ -1,0 +1,68 @@
+﻿@model Fundraiser_1
+@{
+    ViewData["Title"] = "Home Page";
+
+    //var fundraiserName = TempData["FundraiserName"];
+    var fundraiserName = TempData.Peek("FundraiserName");
+    var fundraiserDescription = TempData["Description"];
+    var currentAmount = TempData["CurrentAmount"];
+    var goal = TempData["Goal"];
+}
+
+
+
+<h10>@fundraiserName</h10>
+<br />
+<br />
+
+
+
+
+<table class="table table-borderless" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Fundraiser Picture
+            </th>
+            <th>
+                Fundraiser Info
+                <hr />
+                @fundraiserDescription
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td width="60%">
+                <card>
+
+                </card>
+            </td>
+            <td width="40%">
+                <card>
+                    <p>
+                        Progress bar for collected money
+                        <hr />
+                        Goal: @goal
+                        <br />
+                        Already collected: @currentAmount
+                    </p>
+                    <p>
+                        Number of donors
+                    </p>
+                    <p>
+                        @Html.ActionLink("DONATE", "MakeDonation", "Donation", new {FundraiserName = @fundraiserName}, null);
+                        
+                        
+                     @*   <a asp-controller="Donation" asp-action="MakeDonation" class="link-primary">DONATE</a>*@
+                    </p>
+                    <p>
+                        List of recent donors
+                    </p>
+                </card>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

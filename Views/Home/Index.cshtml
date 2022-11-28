@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@inject IHttpContextAccessor _contextAccessor;
+
+
+
+<html>
+<head>
+
+</head>
+
+<body>
+    <header>
+        <div class="text-center">
+            @*<h1 class="display-4">Welcome @_contextAccessor.HttpContext.Session.GetString("username")</h1>*@
+            <p>Here will be a list of all existent fundraisers and an option to create a new fundraiser.</p>
+        </div>
+
+
+    </header>
+    <main>
+        <h4 class="display-6"> Top Fundraisers</h4>
+        <!--Bootstrap card with info-->
+        <div class="row">
+            <div class="col-3">
+                <div class="card" style="width: 18rem;">
+
+                    <img class="card-img-top" src="https://i.postimg.cc/FfRfFwQw/peakpx.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card" style="width: 18rem;">
+                    <a href='https://postimg.cc/FfRfFwQw' target='_blank' />
+                    <img class="card-img-top" src="https://i.postimg.cc/FfRfFwQw/peakpx.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <img src="https://images.pexels.com/photos/160994/family-outdoor-happy-happiness-160994.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>

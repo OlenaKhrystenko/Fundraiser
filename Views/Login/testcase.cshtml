@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CommerceProject.Models.User_1>
+
+
+<div class="mb-3">
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    User name
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Full name
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Password
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="30%">
+                        @item.UserName
+                    </td>
+                    <td width="30%">
+                        @item.FullName
+                    </td>
+                    <td width="40%">
+                        @item.Password
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

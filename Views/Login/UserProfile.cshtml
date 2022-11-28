@@ -1,0 +1,71 @@
+﻿@using CommerceProject.Models;
+@model User_1
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "~/Views/Login/UserLayout.cshtml";
+    var username = TempData["username"];
+    var fullname = TempData["fullname"];
+    var dob = TempData["dob"];
+    var address = TempData["address"];
+    var email = TempData["email"];
+}
+
+<div class="mb-3">
+    <table class="table table-bordered table-striped" style="width:100%">
+        @*<thead>
+            <tr>
+                <th>
+                    User name
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Full name
+                </th>
+            </tr>
+            
+            <tr>
+                <th>
+                    DOB
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Address
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Email
+                </th>
+            </tr>
+        </thead>*@
+        <tbody>
+        
+            <tr>
+                <td width="15%">
+                    @username
+                </td>
+                <td width="20%">
+                    @fullname
+                </td>
+                
+                    <td width="15%">
+                    @dob
+                    </td>
+                    
+                    <td width="30%">
+                    @address
+                    </td>
+                 
+                    <td width="20%">
+                    @email
+                    </td>
+            </tr>
+        
+        </tbody>
+    </table>
+    <div>
+        <a class="btn btn-primary" asp-controller="Fundraiser" asp-action="StartFundraiser">START FUNDRAISING</a>
+    </div>
+</div>
