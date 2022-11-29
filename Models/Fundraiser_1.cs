@@ -12,6 +12,8 @@ namespace CommerceProject.Models
         [Required]
         public double FundraiserGoal { get; set; }
         public double FundraiserCurrentAmount { get; set; }
+        [Required]
+        public string Owner { get; set; }
         
     }
 }

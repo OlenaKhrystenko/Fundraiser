@@ -1,0 +1,47 @@
+﻿@model User_1
+
+<form method="post" asp-action="Edit">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Edit User's Profile</h2>
+            <hr />
+            <div asp-validation-summary="All">
+
+            </div>
+            @using (Html.BeginForm("Edit", "Login")){
+
+            <div class="mb-3">
+                <label asp-for="UserName">User Name</label>
+                <input asp-for="UserName" class="form-control" name="UserName"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FullName">Full Name</label>
+                <input asp-for="FullName" class="form-control" name="FullName"/>
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+                <div class="mb-3">
+                    <label asp-for="Dob">Date of Birth</label>
+                    <input asp-for="Dob" class="form-control" name="Dob"/>
+                    <span asp-validation-for="Dob" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Address">Address</label>
+                    <input asp-for="Address" class="form-control" name="Address" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" name="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                
+            <button asp-action="Edit" asp-controller="Login" type="submit" class="btn btn-primary" style="width:150px">Update</button>
+            }
+        </div>
+    </div>
+</form>

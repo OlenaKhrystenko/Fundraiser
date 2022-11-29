@@ -28,22 +28,53 @@ namespace CommerceProject.Controllers
         public IActionResult UserProfile() 
         {
             IEnumerable<User_1> allUsers = _db.User_1s;
+            List<User_1> users = _db.User_1s.ToList();
+
             var uname = _contextAccessor.HttpContext.Session.GetString("username");
+
+            string duplicate = "";
+            int userid = 0; 
+
+            int count = 0;
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].UserName == uname)
+                {
+                    count++;
+                    userid = users[i].UserId;
+                    if (count > 1)
+                    {
+                        duplicate = users[i].UserName;
+                        userid = users[i].UserId;
+                    }
+                }
+            }
+
+            //foreach (var us in allUsers)
+            //{
+            //    if (uname == us.UserName && us.UserId != userid && count > 1)
+            //    { 
+            //        _db.User_1s.Remove(us);
+            //    }
+            //}
+
             if (!string.IsNullOrEmpty(uname))
             {
                 foreach (var user in allUsers)
                 {
-                    if (uname == user.UserName)
+                    if (uname == user.UserName && user.UserId == userid)
                     {
                         TempData["username"] = user.UserName;
                         TempData["fullname"] = user.FullName;
                         TempData["dob"] = user.Dob;
                         TempData["address"] = user.Address;
                         TempData["email"] = user.Email;
-                        
+
                         return View("UserProfile");
                     }
                 }
+
             }
             return View("Index");
 
@@ -128,6 +159,70 @@ namespace CommerceProject.Controllers
         public string NewUserNotCreated()
         {
             return "New User was not created.";
+        }
+
+        //Get Edit Method
+        public IActionResult Edit(string? username, string? fullname, string? dob, string? address, string? email) {
+            if (username == null) 
+            {
+                return NotFound();
+            }
+            //var usernameFromDB = _db.User_1s.Find(userId);
+            //var usernameFromDBFisrt = _db.User_1s.FirstOrDefault(u => u.UserName == username);
+            //var usernameFromDBSingle = _db.User_1s.SingleOrDefault(u => u.UserName == username);
+
+            //if (usernameFromDB == null)
+            //{
+            //    return NotFound();
+            //}
+
+            TempData["username"] = username;
+            TempData["fullname"] = fullname;
+            TempData["dob"] = dob;
+            TempData["address"] = address;
+            TempData["email"] = email;
+
+            //return View(usernameFromDB);
+
+
+            return View("Edit");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(User_1 obj, IFormCollection form)
+        {
+            string name = form["UserName"];
+            string pass = "";
+            string sq1 = "";
+            string sq2 = "";
+            string sq3 = "";
+
+            if (name != null)
+            {
+                IEnumerable<User_1> users = _db.User_1s;
+                foreach (User_1 user in users)
+                {
+                    if (user.UserName == name)
+                    { 
+                        pass = user.Password; ;
+                        sq1 = user.SequrityQuestion1;
+                        sq2 = user.SequrityQuestion2;
+                        sq3 = user.SequrityQuestion3;
+                        break;
+                    }
+                }
+            }
+
+            obj.Password = pass;
+            obj.SequrityQuestion1 = sq1;
+            obj.SequrityQuestion2 = sq2;
+            obj.SequrityQuestion3 = sq3;
+
+            _db.User_1s.Update(obj);
+            _db.SaveChanges();
+
+            return RedirectToAction("UserProfile");
         }
 
         //GET action method

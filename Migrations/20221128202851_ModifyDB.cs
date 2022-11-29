@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CommerceProject.Migrations
 {
-    public partial class AddMoreTablesToDB : Migration
+    public partial class ModifyDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            
-
             migrationBuilder.CreateTable(
                 name: "Donor_1s",
                 columns: table => new
@@ -47,9 +45,9 @@ namespace CommerceProject.Migrations
                     table.PrimaryKey("PK_Fundraiser_1s", x => x.FundraiserId);
                 });
 
-            
 
-            
+
+
 
             migrationBuilder.CreateTable(
                 name: "User_1s",
@@ -72,36 +70,23 @@ namespace CommerceProject.Migrations
                     table.PrimaryKey("PK_User_1s", x => x.UserId);
                 });
 
-           
-
-           
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            //migrationBuilder.DropTable(
-            //    name: "donationForms");
-
             migrationBuilder.DropTable(
                 name: "Donor_1s");
 
-            //migrationBuilder.DropTable(
-            //    name: "Donors");
+
 
             migrationBuilder.DropTable(
                 name: "Fundraiser_1s");
 
-            //migrationBuilder.DropTable(
-            //    name: "Logins");
+
 
             migrationBuilder.DropTable(
                 name: "User_1s");
 
-            //migrationBuilder.DropTable(
-            //    name: "Fundraisers");
-
-            //migrationBuilder.DropTable(
-            //    name: "Profiles");
         }
     }
 }

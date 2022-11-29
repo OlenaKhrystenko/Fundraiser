@@ -61,6 +61,14 @@
                     <td width="20%">
                     @email
                     </td>
+
+                    <td>
+                        <div class="w-75">
+                           @* <a asp-controller="Login" asp-action="Edit" asp-route-username="@username">Edit</a>*@
+                        @Html.ActionLink("Edit", "Edit", "Login", new {username = @username,
+                        fullname = @fullname, dob = @dob, address = @address, email = @email}, null );
+                    </div>
+                    </td>
             </tr>
         
         </tbody>
