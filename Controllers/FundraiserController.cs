@@ -32,6 +32,21 @@ namespace CommerceProject.Controllers
             TempData["Description"] = Description;
             TempData["CurrentAmount"] = CurrentAmount;
             TempData["Goal"] = Goal;
+
+            List<string> donorsList = new List<string>();
+            IEnumerable<Donor_1> donors = _db.Donor_1s;
+            foreach (Donor_1 donor in donors)
+            {
+                if (FundraiserName == donor.FundraiserTitle)
+                {
+                    donorsList.Add(donor.DonorName);
+                }
+            }
+
+            TempData["list"] = donorsList;
+
+            TempData["donorsnumber"] = donorsList.Count;
+
             return View();
         }
 

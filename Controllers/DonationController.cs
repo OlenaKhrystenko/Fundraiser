@@ -34,8 +34,7 @@ namespace CommerceProject.Controllers
         //GET action method
         public IActionResult MakeDonation()
         {
-            //to do
-            //TempData["Fund"] = (string)TempData["FundraiserName"];
+            
             return View("DonationForm");
         }
 
@@ -56,6 +55,19 @@ namespace CommerceProject.Controllers
                 else { 
                     form.FundraiserTitle = (string)TempData["FundraiserName"];
                     
+                }
+
+                IEnumerable<Fundraiser_1> fundraisers = _dbContext.Fundraiser_1s;
+                foreach (Fundraiser_1 f in fundraisers)
+                {
+                    if (f.FundraiserName == (string)TempData["FundraiserName"])
+                    {
+                        double ca = Convert.ToDouble(f.FundraiserCurrentAmount);
+                        ca += Convert.ToDouble(collection["DonorAmount"]);
+                        f.FundraiserCurrentAmount = ca;
+                        _dbContext.Fundraiser_1s.Update(f);
+                        
+                    }
                 }
 
 

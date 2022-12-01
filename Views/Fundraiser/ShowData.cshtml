@@ -7,6 +7,9 @@
     var fundraiserDescription = TempData["Description"];
     var currentAmount = TempData["CurrentAmount"];
     var goal = TempData["Goal"];
+
+    var donors = TempData["list"] as List<string>;
+    var size = TempData["donorsnumber"];
 }
 
 
@@ -43,13 +46,16 @@
                 <card>
                     <p>
                         Progress bar for collected money
+               
+                        
+
                         <hr />
                         Goal: @goal
                         <br />
                         Already collected: @currentAmount
                     </p>
                     <p>
-                        Number of donors
+                        Number of donors: @size
                     </p>
                     <p>
                         @Html.ActionLink("DONATE", "MakeDonation", "Donation", new {FundraiserName = @fundraiserName}, null);
@@ -57,8 +63,13 @@
                         
                      @*   <a asp-controller="Donation" asp-action="MakeDonation" class="link-primary">DONATE</a>*@
                     </p>
-                    <p>
+                    <p>                        
                         List of recent donors
+                        @foreach(var don in donors)
+                        {
+                            <p>@don</p>
+                            <br />
+                        }
                     </p>
                 </card>
             </td>

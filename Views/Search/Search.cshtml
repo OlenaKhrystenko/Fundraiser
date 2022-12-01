@@ -1,15 +1,28 @@
-﻿
+﻿@{
+    var searchList = TempData["searchlist"] as List<string>; 
+}
 
 <form method="post">
+    @using (Html.BeginForm("SearchForFundraiser", "Search")){
     <div class="border p-3 mt-4">
         <div class="row pb-2">
             <div class="mb-3">
                 
-                <input placeholder="Search for fundraisers" class="form-control" />
+                <input placeholder="Search for fundraisers" class="form-control" name="search"/>
+                <button class="btn btn-primary" asp-action="SearchForFundraiser" asp-controller="Search">Search</button>
                 
             </div>
             <br /> <br />
             <p>Trending fundraisers</p>
+            <hr />
+            @if(searchList != null){
+            @foreach (var item in searchList)
+            {
+                <p>@item</p>
+                <br/>
+            }
+            }
         </div>
     </div>
+    }
 </form>
