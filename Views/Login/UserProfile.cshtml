@@ -8,7 +8,13 @@
     var dob = TempData["dob"];
     var address = TempData["address"];
     var email = TempData["email"];
+    var fundraiser = TempData["fund"];
+    var description = TempData["descr"];
+    var goal = TempData["goal"];
+    var currentamount = TempData["ca"];
 }
+
+<form method="post">
 
 <div class="mb-3">
     <table class="table table-bordered table-striped" style="width:100%">
@@ -62,6 +68,7 @@
                     @email
                     </td>
 
+
                     <td>
                         <div class="w-75">
                            @* <a asp-controller="Login" asp-action="Edit" asp-route-username="@username">Edit</a>*@
@@ -76,4 +83,11 @@
     <div>
         <a class="btn btn-primary" asp-controller="Fundraiser" asp-action="StartFundraiser">START FUNDRAISING</a>
     </div>
+    <hr />
+    <div>
+        @Html.ActionLink(@fundraiser.ToString(), "ShowData", "Fundraiser", new {FundraiserName = @fundraiser,
+        Description = @description, CurrentAmount = @currentamount, Goal = @goal}, null );
+    </div>
 </div>
+
+</form>

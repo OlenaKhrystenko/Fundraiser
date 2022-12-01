@@ -59,6 +59,23 @@ namespace CommerceProject.Controllers
             //    }
             //}
 
+            string fundname = "";            
+            string description = "";
+            double goal = 0.00;
+            double currentamount = 0.00;
+
+            IEnumerable<Fundraiser_1> fundraisers = _db.Fundraiser_1s;
+            foreach (Fundraiser_1 fundraiser in fundraisers)
+            {
+                if (fundraiser.Owner == uname)
+                { 
+                    fundname = fundraiser.FundraiserName;
+                    description = fundraiser.FundraiserDescription;
+                    goal = fundraiser.FundraiserGoal;
+                    currentamount = fundraiser.FundraiserCurrentAmount;
+                }
+            }
+
             if (!string.IsNullOrEmpty(uname))
             {
                 foreach (var user in allUsers)
@@ -70,6 +87,10 @@ namespace CommerceProject.Controllers
                         TempData["dob"] = user.Dob;
                         TempData["address"] = user.Address;
                         TempData["email"] = user.Email;
+                        TempData["fund"] = fundname;
+                        TempData["descr"] = description;
+                        TempData["goal"] = goal;
+                        TempData["ca"] = currentamount;
 
                         return View("UserProfile");
                     }

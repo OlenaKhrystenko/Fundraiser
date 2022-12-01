@@ -1,11 +1,16 @@
-﻿
+﻿@inject IHttpContextAccessor _contextAccessor;
 
 
 <div class="row">
     <div class="col-6">
         <div class="card">
             <div class="card-header">
-                <h1>Sign in before continue... </h1>
+                @if(!User.Identity.IsAuthenticated){
+                    <h1>Sign in before continue... </h1><br/>
+                }
+                else{
+                    <h1>@User.Identity.Name</h1>
+                }
                 @*<a asp-controller="Login" asp-action="demo" class="link-primary">Sign in</a>*@
             </div>
             @using (Html.BeginForm("StartFundraiser", "Fundraiser"))
@@ -19,12 +24,16 @@
 
                         <div class="mb-3">
                             <label>Fundraiser Title:</label>
-                            <input type="text" placeholder="title" class="form-control" name="title" />
-
+                            <input type="text" placeholder="Title" class="form-control" name="title" />
                         </div>
 
                         <div class="mb-3">
-                            <button asp-controller="Fundraiser" asp-action="StartFundraiser" type="submit" class="btn btn-primary">Next</button>
+                            <label>Fundraiser Description:</label>
+                            <input type="text" placeholder="Description" class="form-control" name="description" />
+                        </div>
+
+                        <div class="mb-3">
+                            <button asp-controller="Fundraiser" asp-action="CreateFundraiser" type="submit" class="btn btn-primary">Submit</button>
                         </div>
 
                         

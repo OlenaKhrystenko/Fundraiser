@@ -53,5 +53,28 @@ namespace CommerceProject.Controllers
             //}
             return View();
         }
+
+        //public IActionResult CreateFundraiser()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult CreateFundraiser(Fundraiser_1 obj, IFormCollection form)
+        {
+            obj.FundraiserCurrentAmount = 0.00;
+            if (User.Identity.IsAuthenticated) {
+                obj.Owner = User.Identity.Name;
+            }
+            obj.FundraiserName = form["title"];
+            obj.FundraiserGoal = Convert.ToDouble(form["goal"]);
+            obj.FundraiserDescription = form["description"];
+
+            _db.Fundraiser_1s.Add(obj);
+            _db.SaveChanges();
+
+            return RedirectToAction("FundraiserListView");
+        }
     }
 }
