@@ -23,15 +23,24 @@
 
                         </div>
 
-                        <div class="mb-3">
-                            <button asp-controller="Fundraiser" asp-action="StartFundraiser" type="submit" class="btn btn-primary">Next</button>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Please provide a description for your fundraiser. This will be visible to the public.</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label for="formFile" class="form-label">Upload an image for your fundraiser</label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+
+                        <div class="mb-3">
+                            <br>
+                            <button asp-controller="Fundraiser" asp-action="StartFundraiser" type="submit" class="btn btn-primary">Next</button>
+                        </div>
                         
                     </form>
                 </div>
-                <div class="card-footer">
-                </div>
+                
             }
             
 
