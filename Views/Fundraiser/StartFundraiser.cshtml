@@ -9,7 +9,7 @@
                     <h1>Sign in before continue... </h1><br/>
                 }
                 else{
-                    <h1>@User.Identity.Name</h1>
+                    <h1>Welcome @User.Identity.Name</h1>
                 }
                 @*<a asp-controller="Login" asp-action="demo" class="link-primary">Sign in</a>*@
             </div>
@@ -35,7 +35,9 @@
                         <div class="mb-3">
                             <button asp-controller="Fundraiser" asp-action="CreateFundraiser" type="submit" class="btn btn-primary">Submit</button>
                         </div>
-
+                        <div class="mb-3">
+                            <button asp-controller="Home" asp-action="Index" type="submit" class="btn btn-secondary">Go Back</button>
+                        </div>
                         
                     </form>
                 </div>
