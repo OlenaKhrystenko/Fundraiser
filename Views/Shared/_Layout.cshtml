@@ -20,19 +20,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <!--Aligning login nav item to right "flex-grow-1 to w-100"
-
-                                        //MB-->
-                    <ul id="name" class="navbar-nav w-100">
- 
-                           
-                        
+                    <ul id="name" class="navbar-nav w-100">                                                 
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Search" id="s" asp-action="SearchForFundraiser">Search</a>
-                        </li>
-                        
-
-                        
+                        </li>                       
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Fundraiser" asp-action="FundraiserListView">Fundraisers</a>
                         </li>
@@ -40,9 +31,8 @@
                             <a class="nav-link text-light" asp-controller="Fundraiser" asp-action="StartFundraiser">START FUNDRAISING</a>
                         </li>
                         
-
                        <ul class="navbar nav ml-auto">
-                            @if (User.Identity.IsAuthenticated@* && !string.IsNullOrEmpty(_contextAccessor.HttpContext.Session.GetString("username"))*@)
+                            @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
                                     <form method="post" asp-action="Logout" asp-controller="Login">

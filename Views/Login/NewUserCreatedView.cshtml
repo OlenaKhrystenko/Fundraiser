@@ -1,5 +1,12 @@
 ﻿@model Login
+@{
+    var username = TempData["usrnm"];
+}
 
 <h7>
-    User @ViewBag.name was successfully created.
+    User @username was successfully created. 
 </h7>
+<hr />
+<a asp-controller="Login" asp-action="Index" class="link-primary">
+    Sing In
+</a>

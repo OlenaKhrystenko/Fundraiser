@@ -9,6 +9,7 @@ namespace CommerceProject.Controllers
     {
         private readonly ApplicationDBContext _db;
 
+        //constructor
         public FundraiserController(ApplicationDBContext db)
         {
             _db = db;
@@ -26,6 +27,7 @@ namespace CommerceProject.Controllers
             return Content("Fundraiser Name: " + objFund.FundraiserName + " " + objFund.FundraiserDescription);
         }
 
+        //edit existing fundraiser
         public IActionResult Edit(string? FundraiserName, string? FundraiserDescription, string? FundraiserGoal, string? Owner) {
             TempData["fname"] = FundraiserName;
             TempData["fdescr"] = FundraiserDescription;
@@ -35,6 +37,7 @@ namespace CommerceProject.Controllers
             return View("EditF");
         }
 
+        //edit existing fundraiser. save updates in DB
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Fundraiser_1 f, IFormCollection collection)
@@ -59,13 +62,10 @@ namespace CommerceProject.Controllers
                 }
             }
 
-            
-
-            //_db.Fundraiser_1s.Update(f);
-            //_db.SaveChanges();
             return View("EditF");
         }
 
+        //show fundraiser's information
         public IActionResult ShowData(string FundraiserName, string Description, double CurrentAmount, double Goal, string Owner) 
         {
             TempData["FundraiserName"] = FundraiserName;
@@ -91,6 +91,7 @@ namespace CommerceProject.Controllers
             return View();
         }
 
+        //show list of existed fundraisers
         public IActionResult FundraiserListView(IFormCollection form) 
         {
             string name = form["FundraiserName"];
@@ -98,25 +99,12 @@ namespace CommerceProject.Controllers
             IEnumerable<Fundraiser_1> objFundraiserList = _db.Fundraiser_1s;
             return View(objFundraiserList);
         }
-
         
-        public IActionResult StartFundraiser() 
-        {
-            //var user = TempData["user"];
-            //if (user == null) 
-            //{
-            //    return RedirectToAction("demo", "Login");
-            //}
-            return View();
-        }
 
-        //public IActionResult CreateFundraiser()
-        //{
-        //    return View();
-        //}
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
+        //create new fundraiser
         public IActionResult CreateFundraiser(Fundraiser_1 obj, IFormCollection form)
         {
             obj.FundraiserCurrentAmount = 0.00;
@@ -131,6 +119,12 @@ namespace CommerceProject.Controllers
             _db.SaveChanges();
 
             return RedirectToAction("FundraiserListView");
+        }
+
+
+        public IActionResult StartFundraiser()
+        {
+            return View();
         }
     }
 }

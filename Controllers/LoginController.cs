@@ -25,6 +25,7 @@ namespace CommerceProject.Controllers
             _contextAccessor = contextAccessor;//11/21/2022 
         }
 
+        //Show information in user's profile
         public IActionResult UserProfile() 
         {
             IEnumerable<User_1> allUsers = _db.User_1s;
@@ -79,7 +80,7 @@ namespace CommerceProject.Controllers
                     ownFundraisers.Add(fundraiser);
                 }
             }
-
+            //pass data to corresponding view
             if (!string.IsNullOrEmpty(uname))
             {
                 foreach (var user in allUsers)
@@ -104,61 +105,6 @@ namespace CommerceProject.Controllers
 
             }
             return View("Index");
-
-            //var usrs = getUser();
-            //var dnrs = getDonor();
-            //var fndrs = getFundraiser();
-
-            //MultipleModelsVM model = new MultipleModelsVM();
-            //model.Userss = usrs;
-            //model.Donorss = dnrs;
-            //model.Fundraiserss = fndrs;
-
-            //return View(model);
-        }
-
-        public User_1 getUser()//11/25/2022
-        {
-            IEnumerable<User_1> allUsers = _db.User_1s;
-            var uname = _contextAccessor.HttpContext.Session.GetString("username");
-            if (!string.IsNullOrEmpty(uname))
-            {
-                foreach (var user in allUsers) 
-                {
-                    if (uname == user.UserName)
-                    { 
-                        return user;
-                    }
-                }
-            }
-            return new User_1();
-        }
-
-        public IEnumerable<Fundraiser_1> getFundraiser()//11/25/2022 
-        {
-            IEnumerable<Fundraiser_1> allFundraisers = _db.Fundraiser_1s;
-            return allFundraisers;
-        }
-
-        public Donor_1 getDonor()//11/25/2022
-        { 
-            IEnumerable<Donor_1> allDonors = _db.Donor_1s;
-            List<User_1> userList = _db.User_1s.ToList();
-            var uname = _contextAccessor.HttpContext.Session.GetString("username");
-            if (!string.IsNullOrEmpty(uname))
-            {
-                foreach (var donor in allDonors)
-                {
-                    for (int i = 0; i < userList.Count; i++)
-                    {
-                        if (donor.DonorName == userList.ElementAt(i).FullName)
-                        {
-                            return donor;
-                        }
-                    }
-                }
-            }
-            return new Donor_1();
         }
 
         public IActionResult Index()
@@ -167,54 +113,23 @@ namespace CommerceProject.Controllers
             return View();
         }
 
-        public IActionResult Test()
-        {
-            IEnumerable<User_1> users = _db.User_1s;
-            return View("Demo");
-        }
-
-        public string NewUserCreated() {
-            return "New User was successfully created.";
-        }
-        
-        public IActionResult testcase()
-        {
-            IEnumerable<User_1> users = _db.User_1s;
-            return View("Demo");
-        }
-
-        public string NewUserNotCreated()
-        {
-            return "New User was not created.";
-        }
-
-        //Get Edit Method
+        //Get Edit Method editing user's profile
         public IActionResult Edit(string? username, string? fullname, string? dob, string? address, string? email) {
             if (username == null) 
             {
                 return NotFound();
             }
-            //var usernameFromDB = _db.User_1s.Find(userId);
-            //var usernameFromDBFisrt = _db.User_1s.FirstOrDefault(u => u.UserName == username);
-            //var usernameFromDBSingle = _db.User_1s.SingleOrDefault(u => u.UserName == username);
-
-            //if (usernameFromDB == null)
-            //{
-            //    return NotFound();
-            //}
-
+            
             TempData["username"] = username;
             TempData["fullname"] = fullname;
             TempData["dob"] = dob;
             TempData["address"] = address;
             TempData["email"] = email;
 
-            //return View(usernameFromDB);
-
-
             return View("Edit");
         }
 
+        //update user's profile, save changes in DB
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(User_1 obj, IFormCollection form)
@@ -252,13 +167,13 @@ namespace CommerceProject.Controllers
             return RedirectToAction("UserProfile");
         }
 
-        //GET action method
+        //GET action method   creating a new user
         public IActionResult Create()
         {
             return View();
         }
 
-        //POST action method
+        //POST action method    creating a new user. Add data to DB
         [HttpPost]  
         [ValidateAntiForgeryToken]  
         public IActionResult Create(User_1 obj, IFormCollection form)
@@ -274,6 +189,7 @@ namespace CommerceProject.Controllers
 
             if (objLoginList != null)
             {
+                //check if antered login alredy exists
                 foreach (User_1 login in objLoginList)
                 {
                     if (userName == login.UserName)
@@ -282,6 +198,7 @@ namespace CommerceProject.Controllers
                     }
                 }
             }
+            //check if password and confirsm pasword match
             if (pwd != confirmPwd)
             {
                 errorMsg += "Password and Confirm Password must match.";
@@ -296,10 +213,8 @@ namespace CommerceProject.Controllers
                 return View("Create");
             }
 
-
-            //if (ModelState.IsValid)
-            {   
-                if (errorMsg.Length == 0) {
+               if (errorMsg.Length == 0) {
+                TempData["usrnm"] = userName;
                     obj.Address = " ";
                     obj.Dob = " ";
                     obj.Email = " ";
@@ -311,12 +226,12 @@ namespace CommerceProject.Controllers
                     return RedirectToAction("NewUserCreated");
                 } 
 
-            }
             return View("Create");  
         }
 
+        //sign in
         [HttpPost]
-        public async Task<IActionResult> Login(IFormCollection form/*, string ReturnUrl*/) 
+        public async Task<IActionResult> Login(IFormCollection form) 
         {
             string usr = form["UserName"];
             string pwd = form["Password"];
@@ -349,15 +264,8 @@ namespace CommerceProject.Controllers
 
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
 
-
-                        //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-
                         ViewBag.Message = "You are successfuly logged in.";
 
-                        //return Redirect(ReturnUrl == null ? "/Home/Index" : ReturnUrl);
-                        //return View("Demo");
-                        //return View("UserProfile");//11/25//2022
                         return RedirectToAction("UserProfile");
                     }
                 }
@@ -366,40 +274,9 @@ namespace CommerceProject.Controllers
             return View("Index");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult demo(IFormCollection form)
-        {
-            
-            string usr = form["UserName"];
-            string pwd = form["Password"];
+        
 
-                string yes = "no";
-                IEnumerable<User_1> objLoginList = _db.User_1s;
-                if (objLoginList != null)
-                {
-                    foreach (User_1 login in objLoginList)
-                    {
-                        if (login.UserName == usr && login.Password == pwd)
-                        {
-                            yes = "yes";
-
-                        _contextAccessor.HttpContext.Session.SetString("username", usr);
-                        _contextAccessor.HttpContext.Session.SetString("password", pwd);
-
-                        TempData["user"] = usr;
-
-                            ViewBag.Message = "You are successfuly logged in.";
-                            //return RedirectToAction("Create");
-                            return RedirectToAction("Index", "Home");
-                        }
-                    }
-                }
-                ViewBag.Message = "Your login or password is incorrect";
-                return View("Index");
-           // }
-        }
-
+        //sign out
         [HttpPost]
         public async Task<IActionResult> Logout() 
         { 
@@ -408,7 +285,67 @@ namespace CommerceProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
- 
-     
+
+
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult demo(IFormCollection form)
+        {
+
+            string usr = form["UserName"];
+            string pwd = form["Password"];
+
+            string yes = "no";
+            IEnumerable<User_1> objLoginList = _db.User_1s;
+            if (objLoginList != null)
+            {
+                foreach (User_1 login in objLoginList)
+                {
+                    if (login.UserName == usr && login.Password == pwd)
+                    {
+                        yes = "yes";
+
+                        _contextAccessor.HttpContext.Session.SetString("username", usr);
+                        _contextAccessor.HttpContext.Session.SetString("password", pwd);
+
+                        TempData["user"] = usr;
+
+                        ViewBag.Message = "You are successfuly logged in.";
+                        //return RedirectToAction("Create");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+            ViewBag.Message = "Your login or password is incorrect";
+            return View("Index");
+            // }
+        }
+        public IActionResult Test()
+        {
+            IEnumerable<User_1> users = _db.User_1s;
+            return View("Demo");
+        }
+
+        public IActionResult NewUserCreated()
+        {
+            return View("NewUserCreatedView");
+        }
+
+        public IActionResult testcase()
+        {
+            IEnumerable<User_1> users = _db.User_1s;
+            return View("Demo");
+        }
+
+        public string NewUserNotCreated()
+        {
+            return "New User was not created.";
+        }
+
+
+
     }
 }

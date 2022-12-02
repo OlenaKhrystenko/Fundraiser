@@ -20,34 +20,6 @@
 
 <div class="mb-3">
     <table class="table table-bordered table-striped" style="width:100%">
-        @*<thead>
-            <tr>
-                <th>
-                    User name
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    Full name
-                </th>
-            </tr>
-            
-            <tr>
-                <th>
-                    DOB
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    Address
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    Email
-                </th>
-            </tr>
-        </thead>*@
         <tbody>
         
             <tr>
@@ -72,8 +44,7 @@
 
 
                     <td>
-                        <div class="w-75">
-                           @* <a asp-controller="Login" asp-action="Edit" asp-route-username="@username">Edit</a>*@
+                        <div class="w-75">                           
                         @Html.ActionLink("Edit", "Edit", "Login", new {username = @username,
                         fullname = @fullname, dob = @dob, address = @address, email = @email}, null );
                     </div>
@@ -86,10 +57,7 @@
         <a class="btn btn-primary" asp-controller="Fundraiser" asp-action="StartFundraiser">START FUNDRAISING</a>
     </div>
     <hr />
-    @*<div>
-        @Html.ActionLink(@fundraiser.ToString(), "ShowData", "Fundraiser", new {FundraiserName = @fundraiser,
-        Description = @description, CurrentAmount = @currentamount, Goal = @goal}, null );
-    </div>*@
+ 
     @foreach(var f in flist)
     {
         @Html.ActionLink(@f.FundraiserName, "ShowData", "Fundraiser", new {FundraiserName = @f.FundraiserName,

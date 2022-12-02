@@ -6,12 +6,13 @@
         <div class="card">
             <div class="card-header">
                 @if(!User.Identity.IsAuthenticated){
-                    <h1>Sign in before continue... </h1><br/>
+                    <h1>Sign in before continue... </h1>
+                    <a class="link-primary text-dark" asp-controller="Login" asp-action="Index">Sign In</a>
+                    <br/>
                 }
                 else{
                     <h1>Welcome @User.Identity.Name</h1>
                 }
-                @*<a asp-controller="Login" asp-action="demo" class="link-primary">Sign in</a>*@
             </div>
             @using (Html.BeginForm("StartFundraiser", "Fundraiser"))
             {
@@ -36,16 +37,14 @@
                             <button asp-controller="Fundraiser" asp-action="CreateFundraiser" type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <div class="mb-3">
-                            <button asp-controller="Home" asp-action="Index" type="submit" class="btn btn-secondary">Go Back</button>
+                            <button asp-controller="Login" asp-action="UserProfile" type="submit" class="btn btn-secondary">Go Back</button>
                         </div>
                         
                     </form>
                 </div>
                 <div class="card-footer">
                 </div>
-            }
-            
-
+            }            
         </div>
     </div>
 </div>
