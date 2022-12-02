@@ -7,6 +7,7 @@
     var fundraiserDescription = TempData["Description"];
     var currentAmount = TempData["CurrentAmount"];
     var goal = TempData["Goal"];
+    var owner = TempData["Owner"];
 
     var donors = TempData["list"] as List<string>;
     var size = TempData["donorsnumber"];
@@ -61,7 +62,16 @@
                         @Html.ActionLink("DONATE", "MakeDonation", "Donation", new {FundraiserName = @fundraiserName}, null);
                         
                         
+
                      @*   <a asp-controller="Donation" asp-action="MakeDonation" class="link-primary">DONATE</a>*@
+                    </p>
+                    <p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Edit", "Edit", "Fundraiser", new {FundraiserName = fundraiserName,
+                                            FundraiserDescription = fundraiserDescription, FundraiserGoal = goal, Owner = owner}, null);
+                            
+                        }
                     </p>
                     <p>                        
                         List of recent donors

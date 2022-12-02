@@ -1,5 +1,6 @@
-﻿@{
-    var searchList = TempData["searchlist"] as List<string>; 
+﻿@model List<Fundraiser_1>
+@{
+    var flist = TempData["flist"] as List<Fundraiser_1>;
 }
 
 <form method="post">
@@ -13,15 +14,20 @@
                 
             </div>
             <br /> <br />
-            <p>Trending fundraisers</p>
+            <p>Search results:</p>
             <hr />
-            @if(searchList != null){
-            @foreach (var item in searchList)
-            {
-                <p>@item</p>
-                <br/>
-            }
-            }
+
+                @if (flist != null)
+                {
+                    @foreach (var f in flist)
+                    {
+                        @Html.ActionLink(@f.FundraiserName, "ShowData", "Fundraiser", new {FundraiserName = @f.FundraiserName,
+                                         Description = @f.FundraiserDescription, CurrentAmount = @f.FundraiserCurrentAmount,
+                                         Goal = @f.FundraiserGoal}, null );
+                        <br />
+                    }
+                }
+                
         </div>
     </div>
     }

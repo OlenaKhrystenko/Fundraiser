@@ -39,19 +39,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-controller="Fundraiser" asp-action="StartFundraiser">START FUNDRAISING</a>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-light">@_contextAccessor.HttpContext.Session.GetString("username")</a>
-                        </li>
-                        @*@if (User.Identity.IsAuthenticated)
+                        </li>*@
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li>
-                                <form method="post">
-                                    <a class="nav-link text-light" asp-controller="Login" asp-action="Logout" class="btn btn-primary">Sign out</a>
-                                </form>
-
+                            <li>                               
+                                <a class="nav-link text-light" asp-controller="Login" asp-action="UserProfile" class="btn btn-primary">@User.Identity.Name</a>                                
                             </li>
                         }
-*@
+
 
                         @*<li>
                         <a class="nav-link text-light" asp-controller="Login" asp-action="Index" class="btn btn-primary">Sign In</a>

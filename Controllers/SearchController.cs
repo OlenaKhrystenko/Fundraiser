@@ -23,15 +23,17 @@ namespace CommerceProject.Controllers
         public IActionResult SearchForFundraiser(IFormCollection form) 
         { 
             IEnumerable<Fundraiser_1> fundraisers = _db.Fundraiser_1s;
-            List<string> names = new List<string>();
+
+            List<Fundraiser_1> sfundList = new List<Fundraiser_1>();
             foreach (Fundraiser_1 fundraiser in fundraisers)
             {
                 if (fundraiser.FundraiserName.ToLower().Contains(form["search"].ToString().ToLower()))
                 {
-                    names.Add(fundraiser.FundraiserName);
+                    sfundList.Add(fundraiser);
                 }
             }
-            TempData["searchlist"] = names;
+
+            TempData["flist"] = sfundList;
 
             return View("Search");
         }

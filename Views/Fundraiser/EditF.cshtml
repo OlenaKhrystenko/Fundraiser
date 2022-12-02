@@ -1,0 +1,47 @@
+﻿@model Fundraiser_1
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">                
+                <h1>@User.Identity.Name</h1>               
+            </div>
+            @using (Html.BeginForm("Edit", "Fundraiser", FormMethod.Post))
+            {
+                <div class="card-body">
+                    <form asp-controller="Login" method="post">
+                        <div class="mb-3">
+                            <label>Enter your goal:</label>
+                            <input asp-for="FundraiserGoal" type="text" class="form-control" name="goal" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Fundraiser Title:</label>
+                            <input asp-for="FundraiserName" type="text" class="form-control" name="title" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Fundraiser Description:</label>
+                            <input asp-for="FundraiserDescription" type="text" class="form-control" name="description" />
+                        </div>
+
+                        <div class="mb-3">
+                            
+                            <input asp-for="Owner" type="text" class="form-control" name="owner" hidden />
+                        </div>
+
+                        <div class="mb-3">
+                            <button asp-controller="Fundraiser" asp-action="Edit" type="submit" class="btn btn-primary">Update</button>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="card-footer">
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>

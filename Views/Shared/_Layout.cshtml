@@ -46,9 +46,11 @@
                             {
                                 <li class="nav-item">
                                     <form method="post" asp-action="Logout" asp-controller="Login">
-                                        <button asp-action="Logout" asp-controller="Login"  type="submit" class="nav-link btn btn-link py-0 text-light" style="width:auto">Sign out @User.Identity.Name</button>
-                                        @*<a class="nav-link text-light" asp-controller="Home" asp-action="Index" class="btn btn-primary">Sign out</a>*@
+                                        <button asp-action="Logout" asp-controller="Login"  type="submit" class="nav-link btn btn-link py-0 text-light" style="width:auto">Sign out@* @User.Identity.Name*@</button>                                       
                                     </form>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-controller="Login" asp-action="UserProfile" class="nav-link btn btn-link py-0 text-light">@User.Identity.Name</a>
                                 </li>
                             } else 
                             {

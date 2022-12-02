@@ -26,12 +26,53 @@ namespace CommerceProject.Controllers
             return Content("Fundraiser Name: " + objFund.FundraiserName + " " + objFund.FundraiserDescription);
         }
 
-        public IActionResult ShowData(string FundraiserName, string Description, double CurrentAmount, double Goal) 
+        public IActionResult Edit(string? FundraiserName, string? FundraiserDescription, string? FundraiserGoal, string? Owner) {
+            TempData["fname"] = FundraiserName;
+            TempData["fdescr"] = FundraiserDescription;
+            TempData["fgoal"] = FundraiserGoal;
+            TempData["fowner"] = Owner;
+
+            return View("EditF");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Fundraiser_1 f, IFormCollection collection)
+        {
+            f.FundraiserName = collection["title"];
+            f.FundraiserDescription = collection["description"];
+            f.FundraiserGoal = Convert.ToDouble(collection["goal"]);
+            f.Owner = User.Identity.Name;
+
+            IEnumerable<Fundraiser_1> funds = _db.Fundraiser_1s;
+            foreach (Fundraiser_1 objFund in funds)
+            {
+                if (objFund.FundraiserName == collection["title"])
+                {
+                    objFund.FundraiserName = collection["title"];
+                    objFund.FundraiserDescription = collection["description"];
+                    objFund.FundraiserGoal = Convert.ToDouble(collection["goal"]);
+                    objFund.Owner = User.Identity.Name;
+                    _db.Fundraiser_1s.Update(objFund);                  
+                    
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            
+
+            //_db.Fundraiser_1s.Update(f);
+            //_db.SaveChanges();
+            return View("EditF");
+        }
+
+        public IActionResult ShowData(string FundraiserName, string Description, double CurrentAmount, double Goal, string Owner) 
         {
             TempData["FundraiserName"] = FundraiserName;
             TempData["Description"] = Description;
             TempData["CurrentAmount"] = CurrentAmount;
             TempData["Goal"] = Goal;
+            TempData["Owner"] = Owner;
 
             List<string> donorsList = new List<string>();
             IEnumerable<Donor_1> donors = _db.Donor_1s;

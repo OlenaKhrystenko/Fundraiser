@@ -64,6 +64,8 @@ namespace CommerceProject.Controllers
             double goal = 0.00;
             double currentamount = 0.00;
 
+            List<Fundraiser_1> ownFundraisers = new List<Fundraiser_1>();
+
             IEnumerable<Fundraiser_1> fundraisers = _db.Fundraiser_1s;
             foreach (Fundraiser_1 fundraiser in fundraisers)
             {
@@ -73,6 +75,8 @@ namespace CommerceProject.Controllers
                     description = fundraiser.FundraiserDescription;
                     goal = fundraiser.FundraiserGoal;
                     currentamount = fundraiser.FundraiserCurrentAmount;
+
+                    ownFundraisers.Add(fundraiser);
                 }
             }
 
@@ -91,6 +95,8 @@ namespace CommerceProject.Controllers
                         TempData["descr"] = description;
                         TempData["goal"] = goal;
                         TempData["ca"] = currentamount;
+
+                        TempData["flist"] = ownFundraisers;
 
                         return View("UserProfile");
                     }

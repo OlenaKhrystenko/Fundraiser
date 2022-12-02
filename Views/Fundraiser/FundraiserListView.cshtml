@@ -35,8 +35,8 @@
             <tr>
                 <td width="30%">
                     @Html.ActionLink(@obj.FundraiserName, "ShowData", "Fundraiser", new {FundraiserName = @obj.FundraiserName, 
-                        Description = @obj.FundraiserDescription, CurrentAmount = obj.FundraiserCurrentAmount,
-                        Goal = obj.FundraiserGoal}, null );                            
+                        Description = @obj.FundraiserDescription, CurrentAmount = @obj.FundraiserCurrentAmount,
+                        Goal = @obj.FundraiserGoal, Owner = obj.Owner}, null );
                 </td>
                 <td width="40%">
                     @obj.FundraiserDescription   
