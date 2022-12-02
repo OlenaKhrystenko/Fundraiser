@@ -19,17 +19,9 @@ namespace CommerceProject.Controllers
         public IActionResult Index()
         {
             
-            return View("DonationForm");
-            //return View(new Donor_1());
+            return View("Index");
+ 
         }
-
-        //[HttpPost]
-        //public ContentResult Index(Donor_1 donor) 
-        //{
-        //    return Content("Donation: " + donor.FundraiserTitle);
-        //}
-
-
 
         //GET action method
         public IActionResult MakeDonation()
@@ -42,12 +34,10 @@ namespace CommerceProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult MakeDonation(Donor_1 form, IFormCollection collection, string FundraiserName) {
-            //if (ModelState.IsValid)
-            {
-                //string donType = form.DonationType.ToString();
+
                 String donType = collection["PaymentMethod"];
-                string msg = collection["DonorName"] + " donated " + collection["DonorAmount"] + " via " + donType;
-                ViewBag.Message = msg;
+                string msg = collection["DonorName"] + " donated " + collection["DonorAmount"] + "$. Thank you!";
+            TempData["msg"] = msg;
                 form.PaymentMethod = donType;
                 if (TempData["FundraiserName"] == null) { 
                     form.FundraiserTitle = "Error";
@@ -74,8 +64,7 @@ namespace CommerceProject.Controllers
                 _dbContext.Donor_1s.Add(form);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");   
-            }
-            return View("DonationForm");
+
         }
 
 
