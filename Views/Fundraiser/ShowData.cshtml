@@ -12,7 +12,7 @@
     var size = TempData["donorsnumber"];
 }
 
-<h10>@fundraiserName</h10>
+<h1>@fundraiserName</h1>
 <br />
 <br />
 
@@ -54,37 +54,46 @@
                                 border: 0.3rem solid green;
                                 margin-top: 1.5rem;
                                 background-color: gray;
+                                text-align: right;
+                                line-height: 2rem;
+                                color: black;
                             }
 
                             #progressBarFull{
                                 height: 1.4rem;
                                 background-color: green;
                                 width: 0%;
+                                text-align: center;
+                                line-height: 1.4rem;
+                                color: black;
                             }
                         </style>
                         
                         <script type="text/javascript">
                             const progressBarFull = document.getElementById('progressBarFull');
+                            const progressBar = document.getElementById('progressBar');
                             let currantAmount = '@(TempData["CurrentAmount"])';
                             let goal = '@(TempData["Goal"])';
                             if (currantAmount > goal)
                             {
                                 progressBarFull.style.width = `100%`;
+                                progressBarFull.innerHTML = "$" + currantAmount;
                             }
                             else
                             {
                                 progressBarFull.style.width = `${(currantAmount / goal) * 100}%`;
+                                progressBarFull.innerHTML = "$" + currantAmount;
                             }
                             
                         </script>
 
                         <hr />
-                        Goal: @goal
+                        <b>Goal: </b>@goal
                         <br />
-                        Already collected: @currentAmount
+                        <b>Already collected: </b>@currentAmount
                     </p>
                     <p>
-                        Number of donors: @size
+                        <b>Number of donors: </b>@size
                     </p>
                     <p>
                         @Html.ActionLink("DONATE", "MakeDonation", "Donation", new {FundraiserName = @fundraiserName}, null);
@@ -97,11 +106,10 @@
                         }
                     </p>
                     <p>                        
-                        List of recent donors
+                        <b>List of recent donors:</b>
                         @foreach(var don in donors)
                         {
                             <p>@don</p>
-                            <br />
                         }
                     </p>                    
                 </card>
