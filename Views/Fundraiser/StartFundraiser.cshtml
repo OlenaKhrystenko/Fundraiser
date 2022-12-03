@@ -33,9 +33,13 @@
                             <input type="text" placeholder="Description" class="form-control" name="description" />
                         </div>
 
-                        <div class="mb-3">
-                            <button asp-controller="Fundraiser" asp-action="CreateFundraiser" type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                        @if (User.Identity.IsAuthenticated) 
+                        {
+                            <div class="mb-3">
+                                <button asp-controller="Fundraiser" asp-action="CreateFundraiser" type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        }
+                        
                         <div class="mb-3">
                             <button asp-controller="Login" asp-action="UserProfile" type="submit" class="btn btn-secondary">Go Back</button>
                         </div>

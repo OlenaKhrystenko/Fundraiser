@@ -40,7 +40,44 @@
             <td width="40%">
                 <card>
                     <p>
-                        Progress bar for collected money                                      
+                        Progress bar for collected money      
+                        
+                        <div class="container">
+                            <div id="progressBar">
+                                <div id="progressBarFull"></div>
+                            </div>
+                        </div>
+                        <style type="text/css">
+                            #progressBar {
+                                width: 20rem;
+                                height: 2rem;
+                                border: 0.3rem solid green;
+                                margin-top: 1.5rem;
+                                background-color: gray;
+                            }
+
+                            #progressBarFull{
+                                height: 1.4rem;
+                                background-color: green;
+                                width: 0%;
+                            }
+                        </style>
+                        
+                        <script type="text/javascript">
+                            const progressBarFull = document.getElementById('progressBarFull');
+                            let currantAmount = '@(TempData["CurrentAmount"])';
+                            let goal = '@(TempData["Goal"])';
+                            if (currantAmount > goal)
+                            {
+                                progressBarFull.style.width = `100%`;
+                            }
+                            else
+                            {
+                                progressBarFull.style.width = `${(currantAmount / goal) * 100}%`;
+                            }
+                            
+                        </script>
+
                         <hr />
                         Goal: @goal
                         <br />
@@ -56,8 +93,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             @Html.ActionLink("Edit", "Edit", "Fundraiser", new {FundraiserName = fundraiserName,
-                                            FundraiserDescription = fundraiserDescription, FundraiserGoal = goal, Owner = owner}, null);
-                            
+                                            FundraiserDescription = fundraiserDescription, FundraiserGoal = goal, Owner = owner}, null);                            
                         }
                     </p>
                     <p>                        
