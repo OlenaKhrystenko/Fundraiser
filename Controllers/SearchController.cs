@@ -24,16 +24,20 @@ namespace CommerceProject.Controllers
         { 
             IEnumerable<Fundraiser_1> fundraisers = _db.Fundraiser_1s;
 
+            int count = 0;
+
             List<Fundraiser_1> sfundList = new List<Fundraiser_1>();
             foreach (Fundraiser_1 fundraiser in fundraisers)
             {
                 if (fundraiser.FundraiserName.ToLower().Contains(form["search"].ToString().ToLower()))
                 {
                     sfundList.Add(fundraiser);
+                    count++;
                 }
             }
 
             TempData["flist"] = sfundList;
+            TempData["count"] = count;
 
             return View("Search");
         }

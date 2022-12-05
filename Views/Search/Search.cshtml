@@ -1,6 +1,7 @@
 ﻿@model List<Fundraiser_1>
 @{
     var flist = TempData["flist"] as List<Fundraiser_1>;
+    var count = TempData["count"];
 }
 
 <form method="post">
@@ -17,7 +18,7 @@
             <p>Search results:</p>
             <hr />
 
-                @if (flist != null)
+                @if (flist != null && Convert.ToInt32(count) != 0)
                 {
                     @foreach (var f in flist)
                     {
@@ -26,6 +27,10 @@
                                          Goal = @f.FundraiserGoal}, null );
                         <br />
                     }
+                }
+                else if (flist != null && Convert.ToInt32(count) == 0)
+                {
+                    <p>Search Results Not Found</p>
                 }
                 
         </div>
