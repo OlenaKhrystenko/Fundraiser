@@ -1,0 +1,10 @@
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT TOP (1000) [DonorID]
+      ,[DonorName]
+      ,[DonorAmount]
+      ,[DonorDate]
+      ,[Email]
+      ,[PhoneNumber]
+      ,[PaymentMethod]
+      ,[FundraiserTitle]
+  FROM [FinalDB].[dbo].[Donor_1s]
